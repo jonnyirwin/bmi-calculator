@@ -18,6 +18,11 @@ pipeline {
                           echo 'Testing'
                           sh 'npm run test:coverage'
                      }
+                     post {
+                         always {
+                              step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage/cobertura-coverage.xml'])
+                         }
+                    }
                 }
                 stage('Build') {
                      steps {
