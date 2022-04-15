@@ -16,12 +16,13 @@ pipeline {
                 stage('Unit tests') {
                      steps {
                           echo 'Testing'
-                          sh 'npm test'
+                          sh 'npm run test:coverage'
                      }
                 }
                 stage('Build') {
                      steps {
                           echo 'Building'
+                          sh 'npm run build'
                      }
                 }
            }
