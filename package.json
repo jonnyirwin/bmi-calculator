@@ -32,14 +32,6 @@
       "!src/index.js",
       "!**/node_modules/***"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 0,
-        "functions": 0,
-        "lines": 70,
-        "statements": 0
-      }
-    },
     "coverageReporters": ["text", "cobertura"]
   },
   "eslintConfig": {
