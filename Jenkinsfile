@@ -13,7 +13,7 @@ pipeline {
                           sh 'npm install'
                      }
                 }
-                stage('Unit tests') {
+                stage('Unit tests and coverage') {
                      steps {
                           echo 'Testing'
                           sh 'npm run test:coverage'
