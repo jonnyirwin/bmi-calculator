@@ -2,19 +2,24 @@ pipeline {
     agent none
     stages {
         stage('Continuous Integration') {
-           agent {
-                docker {
-                     image 'node:16.13.1-alpine'
-                }
-           }
+           
            stages {
                 stage('Install dependencies') {
+                     agent {
+                         docker {
+                              image 'node:16.13.1-alpine'
+                         }
+                    }
                      steps {
-                          
                           sh 'npm install'
                      }
                 }
                 stage('Unit tests and coverage') {
+                     agent {
+                         docker {
+                              image 'node:16.13.1-alpine'
+                         }
+                     }
                      steps {
                           sh 'npm run test:coverage'
                      }
@@ -25,6 +30,11 @@ pipeline {
                    // }
                 }
                 stage('Build') {
+                     agent {
+                         docker {
+                              image 'node:16.13.1-alpine'
+                         }
+                     }
                      steps {
                           script {
                             if (fileExists("build")) {
@@ -45,8 +55,7 @@ pipeline {
                      agent {
                           docker {
                                image 'docker'
-                               args '-v /var/run/docker.sock:/var/run/docker.sock'
-                               }
+                          }
                      }
                      steps {
                           script {
