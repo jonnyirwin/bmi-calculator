@@ -25,7 +25,7 @@ pipeline {
                 stage('Build') {
                      steps {
                           sh 'npm run build'
-                          zip zipFile: 'build.zip', archive: true, dir: 'bmi-calculator/build'
+                          sh 'zip -r build.zip build'
                      }
                 }
            }
