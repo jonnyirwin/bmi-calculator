@@ -40,10 +40,16 @@ pipeline {
                           stash name: 'buildZip', includes: 'build.zip', allowEmpty: false
                      }
                 }
-                stage('Unstashing') {
+                stage('Docker Image build') {
                      steps {
-                          echo 'Unstashing'
+                          script {
+                            if (fileExists("build.zip")) {
+                                sh "rm -f build.zip"
+                            }
+                          }
                           unstash name: 'buildZip'
+                          unzip zipFile: 'build.zip' dir: 'dest'
+                          sh 'docker build -t jonnyirwin/bmi-calc -f ./Dockerfile'
                      }
                 }
            }
