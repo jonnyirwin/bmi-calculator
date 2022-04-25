@@ -9,13 +9,11 @@ pipeline {
            stages {
                 stage('Install dependencies') {
                      steps {
-                          echo 'Installing dependencies'
                           sh 'npm install'
                      }
                 }
                 stage('Unit tests and coverage') {
                      steps {
-                          echo 'Testing'
                           sh 'npm run test:coverage'
                      }
                      post {
@@ -26,8 +24,8 @@ pipeline {
                 }
                 stage('Build') {
                      steps {
-                          echo 'Building'
                           sh 'npm run build'
+                          sh 'zip -r build.zip build'
                      }
                 }
            }
