@@ -18,7 +18,7 @@ pipeline {
                      }
                      post {
                          always {
-                              cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml', lineCoverageTargets: '70, 70, 0'
+                             // cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml', lineCoverageTargets: '70, 70, 0'
                          }
                     }
                 }
