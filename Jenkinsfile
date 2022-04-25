@@ -56,6 +56,9 @@ pipeline {
                     script {
                          docker.build('jonnyirwin/bmi-calc')
                     }
+                    withDockerRegistry([ credentialsId: "hub.docker.com", url: “” ]) {
+                         sh ‘docker push jonnyirwin/bmi-calc’ 
+                    }
                }
           }
      }
