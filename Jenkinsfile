@@ -50,7 +50,9 @@ pipeline {
                           }
                           unstash name: 'buildZip'
                           unzip zipFile: 'build.zip', dir: 'dest'
-                          docker.build('jonnyirwin/bmi-calc')
+                          script {
+                               docker.build('jonnyirwin/bmi-calc')
+                          }
                      }
                 }
            }
