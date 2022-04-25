@@ -26,6 +26,7 @@ pipeline {
                      steps {
                           sh 'npm run build'
                           zip zipFile: 'build.zip', archive: true, dir: 'build', overwrite: true
+                          stash name: 'buildZip', includes: 'build.zip', allowEmpty: false
                      }
                 }
            }
