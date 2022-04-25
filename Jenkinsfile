@@ -2,24 +2,18 @@ pipeline {
     agent none
     stages {
         stage('Continuous Integration') {
-           
+          agent {
+               docker {
+                    image 'node:16-alpine'
+               }
+          }
            stages {
                 stage('Install dependencies') {
-                     agent {
-                         docker {
-                              image 'node:16.13.1-alpine'
-                         }
-                    }
                      steps {
                           sh 'npm install'
                      }
                 }
                 stage('Unit tests and coverage') {
-                     agent {
-                         docker {
-                              image 'node:16.13.1-alpine'
-                         }
-                     }
                      steps {
                           sh 'npm run test:coverage'
                      }
@@ -30,11 +24,6 @@ pipeline {
                    // }
                 }
                 stage('Build') {
-                     agent {
-                         docker {
-                              image 'node:16.13.1-alpine'
-                         }
-                     }
                      steps {
                           script {
                             if (fileExists("build")) {
@@ -51,26 +40,27 @@ pipeline {
                           stash name: 'buildZip', includes: 'build.zip', allowEmpty: false
                      }
                 }
-                stage('Docker Image build') {
-                     agent {
-                          docker {
-                               image 'docker'
-                          }
-                     }
-                     steps {
-                          script {
-                            if (fileExists("build.zip")) {
-                                sh "rm -f build.zip"
-                            }
-                          }
-                          unstash name: 'buildZip'
-                          unzip zipFile: 'build.zip', dir: 'dest'
-                          script {
-                               docker.build('jonnyirwin/bmi-calc')
-                          }
-                     }
-                }
+                
            }
         }
-    }
+        stage('Docker Image build') {
+               agent {
+                    docker {
+                         image 'docker'
+                    }
+               }
+               steps {
+                    script {
+                         if (fileExists("build.zip")) {
+                              sh "rm -f build.zip"
+                         }
+                    }
+                    unstash name: 'buildZip'
+                    unzip zipFile: 'build.zip', dir: 'dest'
+                    script {
+                         docker.build('jonnyirwin/bmi-calc')
+                    }
+               }
+          }
+     }
 }
