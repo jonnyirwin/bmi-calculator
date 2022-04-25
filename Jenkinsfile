@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('Continuous Integration') {
           agent {
@@ -44,12 +44,6 @@ pipeline {
            }
         }
         stage('Docker Image build') {
-               agent {
-                    docker {
-                         image 'docker:dind'
-                         args '--privileged'
-                    }
-               }
                steps {
                     sh 'id $(whoami)'
                     script {
