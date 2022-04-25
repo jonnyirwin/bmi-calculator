@@ -42,11 +42,6 @@ pipeline {
                      }
                 }
                 stage('Docker Image build') {
-                     agent {
-                          docker {
-                               image 'docker:dind'
-                          }
-                     }
                      steps {
                           script {
                             if (fileExists("build.zip")) {
@@ -55,7 +50,7 @@ pipeline {
                           }
                           unstash name: 'buildZip'
                           unzip zipFile: 'build.zip', dir: 'dest'
-                          sh 'docker build -t jonnyirwin/bmi-calc -f ./Dockerfile'
+                          docker.build('jonnyirwin/bmi-calc')
                      }
                 }
            }
