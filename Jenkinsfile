@@ -16,11 +16,11 @@ pipeline {
                      steps {
                           sh 'npm run test:coverage'
                      }
-                     post {
-                         always {
+                     //post {
+                     //    always {
                              // cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml', lineCoverageTargets: '70, 70, 0'
-                         }
-                    }
+                    //     }
+                   // }
                 }
                 stage('Build') {
                      steps {
