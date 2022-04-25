@@ -42,7 +42,10 @@ pipeline {
                 }
                 stage('Unstashing') {
                      steps {
+                          sh 'cd /tmp'
+                          echo 'Unstashing'
                           unstash name: 'buildZip'
+                          sh 'ls'
                      }
                 }
            }
