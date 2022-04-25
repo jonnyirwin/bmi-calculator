@@ -48,7 +48,7 @@ pipeline {
                             }
                           }
                           unstash name: 'buildZip'
-                          unzip zipFile: 'build.zip' dir: 'dest'
+                          unzip zipFile: 'build.zip', dir: 'dest'
                           sh 'docker build -t jonnyirwin/bmi-calc -f ./Dockerfile'
                      }
                 }
