@@ -1,11 +1,12 @@
 pipeline {
-    agent{
-        docker {
-            image 'node:16.13.1-alpine'
-        }
-    }
+    agent none
     stages {
         stage('Continuous Integration') {
+           agent {
+                docker {
+                     image 'node:16.13.1-alpine'
+                }
+           }
            stages {
                 stage('Install dependencies') {
                      steps {
@@ -41,6 +42,11 @@ pipeline {
                      }
                 }
                 stage('Docker Image build') {
+                     agent {
+                          docker {
+                               image 'docker:dind'
+                          }
+                     }
                      steps {
                           script {
                             if (fileExists("build.zip")) {
