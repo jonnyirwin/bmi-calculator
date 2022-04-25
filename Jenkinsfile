@@ -24,10 +24,8 @@ pipeline {
                 }
                 stage('Build') {
                      steps {
-                          sh 'whoami'
-                          sh 'apk add zip'
                           sh 'npm run build'
-                          sh 'zip -r build.zip build'
+                          zip zipFile: 'build.zip', archive: true, dir: 'build', overwrite: true
                      }
                 }
            }
