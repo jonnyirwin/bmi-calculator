@@ -9,6 +9,7 @@ pipeline {
            stages {
                 stage('Install dependencies') {
                      steps {
+                          
                           sh 'npm install'
                      }
                 }
@@ -24,9 +25,16 @@ pipeline {
                 }
                 stage('Build') {
                      steps {
+                          sh 'rm -rf build/'
+                          sh 'rm build.zip'
                           sh 'npm run build'
                           zip zipFile: 'build.zip', archive: true, dir: 'build', overwrite: true
                           stash name: 'buildZip', includes: 'build.zip', allowEmpty: false
+                     }
+                }
+                stage('Unstashing') {
+                     steps {
+                          unstash name: 'buildZip'
                      }
                 }
            }
