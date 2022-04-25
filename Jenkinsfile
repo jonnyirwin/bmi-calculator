@@ -42,6 +42,12 @@ pipeline {
                      }
                 }
                 stage('Docker Image build') {
+                     agent {
+                          docker {
+                               image 'docker'
+                               args '-v /var/run/docker.sock:/var/run/docker.sock'
+                               }
+                     }
                      steps {
                           script {
                             if (fileExists("build.zip")) {
