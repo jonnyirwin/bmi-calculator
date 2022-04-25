@@ -51,6 +51,7 @@ pipeline {
                     }
                }
                steps {
+                    sh 'id $(whoami)'
                     script {
                          if (fileExists("build.zip")) {
                               sh "rm -f build.zip"
