@@ -69,7 +69,7 @@ pipeline {
              }
              steps {
                   sh 'trivy image jonnyirwin/bmi-calc'
-             
+             }        
         }
      }
 }
