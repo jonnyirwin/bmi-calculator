@@ -61,5 +61,15 @@ pipeline {
                     }
                }
           }
+        stage('Trivy image scan') {
+             agent {
+                  docker {
+                       image aquasec/trivy:latest
+                  }
+             }
+             steps {
+                  sh 'trivy image jonnyirwin/bmi-calc'
+             
+        }
      }
 }
